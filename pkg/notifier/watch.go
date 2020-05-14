@@ -29,11 +29,11 @@ func Watch(ctx context.Context, out io.Writer) error {
 			if state == "TRUE" {
 				nodeName, err := metadata.InstanceName()
 				if err != nil {
-					logrus.Error(err)
+					logrus.WithError(err).Error("failed to get instance name")
 					return nil
 				}
 				if err := notify(ctx, client, nodeName); err != nil {
-					logrus.Error(err)
+					logrus.WithError(err).Error("failed to send notification")
 					return nil
 				}
 			}
