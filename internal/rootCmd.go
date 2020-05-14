@@ -19,9 +19,9 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().String("log-format", "text", "log format (json or text)")
 	rootCmd.PersistentFlags().String("log-level", "info", "log level (debug, info, warn or error)")
-	cobra.OnInitialize(setup, func() {
+	cobra.OnInitialize(func() {
 		fillWithEnvVars(rootCmd.Flags())
-	})
+	}, setup)
 }
 
 func setup() {
@@ -58,6 +58,6 @@ func initLogger(lvl string, format string) error {
 
 func ExecuteCmd() {
 	if err := rootCmd.Execute(); err != nil {
-		logrus.WithError(err).Fatal("")
+		logrus.WithError(err).Fatal("failed to run application")
 	}
 }
