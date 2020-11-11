@@ -77,8 +77,7 @@ func notify(ctx context.Context, client corev1.CoreV1Interface, nodeName string)
 	logrus.
 		WithField("node", node.Name).
 		WithField("created", node.CreationTimestamp.Time).
-		WithField("lifetime", time.Now().Sub(node.CreationTimestamp.Time)).
-		WithField("labels", node.Labels).
+		WithField("lifetime", time.Now().Sub(node.CreationTimestamp.Time).String()).
 		WithField("pods", podNames).
 		Info("node is going to be preempted soon")
 	return nil
